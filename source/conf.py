@@ -12,14 +12,14 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
+import os
+import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = u'english_learning'
+project = u'the_note_from_duanlang'
 copyright = u'2019, duanlangtaosha'
 author = u'duanlangtaosha'
 
@@ -41,6 +41,7 @@ release = u''
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -76,6 +77,7 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+
 #更换第三方的主题
 html_theme = 'sphinx_rtd_theme'
 
@@ -83,19 +85,70 @@ html_theme = 'sphinx_rtd_theme'
 numfig = True
 
 #上一层目录
-html_theme_path = ['../sphinx_rtd_theme'] 
+html_theme_path = ['../']
+
+file_insertion_enabled = True
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
 # html_theme_options = {}
+html_theme_options = {
+    'canonical_url': '',
+    'analytics_id': 'UA-XXXXXXX-1',  #  Provided by Google in your dashboard
+    'logo_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    'vcs_pageview_mode': '',
+    'style_nav_header_background': 'white',
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
+}
+
+
+max_width_css = os.path.split(__file__)[0]
+max_width_css = os.path.join(max_width_css, 'max_width.css')
+print('1'*50)
+print(max_width_css)
+
+# 添加复盖原有的css文件的一些函数，使得显示网页全屏
+# html_context = {
+#     'css_files': [
+#          max_width_css,  # overrides for wide tables in RTD theme
+#         ],
+#     }
+
+# html_css_files = [ max_width_css]
+
+
+
+
+
+# 不能过过setup的方式设置网页全屏
+# def setup(app):
+# #    app.add_javascript("custom.js")
+#    app.add_stylesheet(max_width_css)
+
+
+#html_static_path = ['../sphinx_rtd_theme/static/css']
+#html_static_path = ['./']
+# 网页全屏显示
+# def setup(app):
+#    app.add_css_file(r"E:\0_repository\the_note_from_duanlang\source\max_width.css")
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# html_static_path = ['_static']
 
+# 去除列表中的'_static'解决报WARNING: html_static_path entry 'E:\\0_repository\\the_note_from_duanlang\\source\\_static' does not exist
+html_static_path = []
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #
@@ -110,7 +163,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'english_learningdoc'
+htmlhelp_basename = 'the_note_from_duanlangdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -137,7 +190,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'english_learning.tex', u'english\\_learning Documentation',
+    (master_doc, 'the_note_from_duanlang.tex', u'the\\_note\\_from\\_duanlang Documentation',
      u'duanlangtaosha', 'manual'),
 ]
 
@@ -147,7 +200,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'english_learning', u'english_learning Documentation',
+    (master_doc, 'the_note_from_duanlang', u'the_note_from_duanlang Documentation',
      [author], 1)
 ]
 
@@ -158,8 +211,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'english_learning', u'english_learning Documentation',
-     author, 'english_learning', 'One line description of project.',
+    (master_doc, 'the_note_from_duanlang', u'the_note_from_duanlang Documentation',
+     author, 'the_note_from_duanlang', 'One line description of project.',
      'Miscellaneous'),
 ]
 
@@ -183,3 +236,62 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
+
+# -- Options for intersphinx extension ---------------------------------------
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {'https://docs.python.org/': None}
+latex_engine = 'xelatex'
+
+#latex_elements ={
+#    'passoptionstopackages' : r'\PassOptionsToPackage{svgnames}{xcolor}',
+#    'preamble': u'''
+#    \\addto\\captionsenglish{\\renewcommand{\\contentsname}{{目\\hspace{1em}录}}}
+#    '''
+#
+#}
+import os
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if on_rtd:
+    latex_elements = {
+    # The paper size ('letterpaper' or 'a4paper').
+    #'papersize': 'letterpaper',
+    # The font size ('10pt', '11pt' or '12pt').
+    #'pointsize': '10pt',
+    # Additional stuff for the LaTeX preamble.
+    'preamble': r'''
+    \hypersetup{unicode=true}
+    \usepackage{CJKutf8}
+    \DeclareUnicodeCharacter{00A0}{\nobreakspace}
+    \DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
+    \DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
+    \DeclareUnicodeCharacter{2286}{\ensuremath{\subseteq}}
+    \DeclareUnicodeCharacter{2713}{x}
+    \DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
+    \DeclareUnicodeCharacter{221A}{\ensuremath{\sqrt{}}}
+    \DeclareUnicodeCharacter{221B}{\ensuremath{\sqrt[3]{}}}
+    \DeclareUnicodeCharacter{2295}{\ensuremath{\oplus}}
+    \DeclareUnicodeCharacter{2297}{\ensuremath{\otimes}}
+    \begin{CJK}{UTF8}{gbsn}
+    \AtEndDocument{\end{CJK}}
+    ''',
+    }
+else:
+    latex_elements = {
+        'papersize' : 'a4paper',
+        'utf8extra' : '',
+        'inputenc'  : '',
+        'babel'     : r'''\usepackage[english]{babel}''',
+        'preamble' : u'''
+        \\usepackage{ctex}
+        \\addto\\captionsenglish{\\renewcommand{\\chaptername{章节}}}
+
+        \\setlength{\\parindent}{2em}
+        ''',
+    }
+
+
+
+# 自然段首行空两个字符
+#\\setlength{\\parindent}{2em}
+
